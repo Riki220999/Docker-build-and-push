@@ -5,10 +5,10 @@ const github = require('../src/github');
 
 describe('Get default repo & owner name', () => {
   test('Returns the environment variable', () => {
-    process.env.GITHUB_REPOSITORY = 'im-the-owner/this-is-my-repo';
+    process.env.GITHUB_REPOSITORY = "Riki2209999/Docker-build-and-push";
     const owner = github.getDefaultOwner();
 
-    expect(owner).toEqual('im-the-owner');
+    expect(owner).toEqual('Riki2209999');
     delete process.env.GITHUB_REPOSITORY;
   });
 

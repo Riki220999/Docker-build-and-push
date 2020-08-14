@@ -29,7 +29,6 @@ jobs:
         DOCKER_BUILDKIT: 1
       with:
         registry: localhost:5000
-        repository: ./
         tags: Dockerfile
 
     - name: Run image from registry

@@ -39,7 +39,7 @@ inputs:
     default: "."
   dockerfile:
     description: Path to the Dockerfile (Default is '{path}/Dockerfile')
-    required: false
+    required: true
   target:
     description: Sets the target stage to build
     required: false

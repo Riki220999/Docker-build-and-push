@@ -1,8 +1,3 @@
-# Docker Build & Push Action
-[![Tests](https://github.com/mr-smithers-excellent/docker-build-push/workflows/Tests/badge.svg?branch=master&event=push)](https://github.com/mr-smithers-excellent/docker-build-push/actions)
-[![Maintainability](https://api.codeclimate.com/v1/badges/ac0bf06dc93ba3110cd3/maintainability)](https://codeclimate.com/github/mr-smithers-excellent/docker-build-push/maintainability)
-[![Test Coverage](https://api.codeclimate.com/v1/badges/ac0bf06dc93ba3110cd3/test_coverage)](https://codeclimate.com/github/mr-smithers-excellent/docker-build-push/test_coverage)
-
 Builds a Docker image and pushes it to the private registry of your choosing.
 
 ## Supported Docker registries
@@ -16,6 +11,7 @@ Builds a Docker image and pushes it to the private registry of your choosing.
 
 * Ensure you run the [checkout action](https://github.com/actions/checkout) before using this action
 * Add the following to a workflow `.yml` file in the `/.github` directory of your repo
+
 ```yaml
 steps:
   - uses: actions/checkout@v1.0
@@ -59,7 +55,7 @@ steps:
 ### Docker Hub
 
 * Save your Docker Hub username (`DOCKER_USERNAME`) and password (`DOCKER_PASSWORD`) as secrets in your GitHub repo
-* Modify sample below and include in your workflow `.github/workflows/*.yml` file 
+* Modify sample below and include in your workflow `.github/workflows/*.yml` file
 
 ```yaml
 uses: mr-smithers-excellent/docker-build-push@v4
@@ -75,7 +71,7 @@ with:
 * Create a service account with the ability to push to GCR (see [configuring access control](https://cloud.google.com/container-registry/docs/access-control))
 * Create and download JSON key for new service account
 * Save content of `.json` file as a secret called `DOCKER_PASSWORD` in your GitHub repo
-* Modify sample below and include in your workflow `.github/workflows/*.yml` file 
+* Modify sample below and include in your workflow `.github/workflows/*.yml` file
 * Ensure you set the username to `_json_key`
 
 ```yaml
@@ -83,8 +79,8 @@ uses: mr-smithers-excellent/docker-build-push@v4
 with:
   image: gcp-project/image-name
   registry: gcr.io
-  username: _json_key 
-  password: ${{ secrets.DOCKER_PASSWORD }} 
+  username: _json_key
+  password: ${{ secrets.DOCKER_PASSWORD }}
 ```
 
 ### AWS Elastic Container Registry (ECR)
@@ -119,7 +115,7 @@ with:
   registry: docker.pkg.github.com
   githubOrg: override-org # optional
   username: ${{ github.actor }}
-  password: ${{ secrets.GITHUB_TOKEN }} 
+  password: ${{ secrets.GITHUB_TOKEN }}
 ```
 
 ## Tagging the image using GitOps
@@ -131,4 +127,4 @@ By default, if you do not pass a `tag` input this action will use an algorithm b
 | /refs/tags/v1.0          | N/A        | v1.0                 |
 | /refs/heads/dev          | 1234567    | dev-1234567          |
 | /refs/heads/master       | 1234567    | master-1234567       |
-| /refs/heads/SOME-feature | 1234567    | some-feature-1234567 | 
+| /refs/heads/SOME-feature | 1234567    | some-feature-1234567 |

@@ -30,9 +30,9 @@
   "author": "Sean Smith",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/mr-smithers-excellent/docker-build-push-action/issues"
+    "url": "https://github.com/Riki220999/Docker-build-and-push/issues"
   },
-  "homepage": "https://github.com/mr-smithers-excellent/docker-build-push-action#readme",
+  "homepage": "https://github.com/Riki220999/Docker-build-and-push#readme",
   "dependencies": {
     "@actions/core": "^1.2.3",
     "@actions/github": "^2.1.1"

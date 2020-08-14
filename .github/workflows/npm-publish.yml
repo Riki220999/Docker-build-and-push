@@ -10,10 +10,21 @@ jobs:
         uses: actions/checkout@v1
       - name: Build
         run: npm ci
-      - name: Run tests & submit coverage report
+      - name: Run test & submit coverage report
         uses: paambaati/codeclimate-action@v2.5.6
-        env:
-          CC_TEST_REPORTER_ID: ${{ secrets.CC_TEST_REPORTER_ID }}
-        with:
-          coverageCommand: npm run test
-          coverageLocations: "coverage/lcov.info:lcov"
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run local registry
+        run: docker run -d -p 5000:5000 registry:2
+      - name: Build and push image
+        uses: ./
+          env:
+            DOCKER_BUILDKIT: 1
+            with:
+            registry: localhost:5000
+            repository: temp/workflow
+            tags: foo
+      - name: Run image from registry
+        run: docker run localhost:5000/temp/workflow:foo
+        coverageCommand: npm run test
+        

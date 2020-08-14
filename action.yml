@@ -1,45 +1,66 @@
-name: 'Docker Build & Push'
-description: 'Builds a Docker image and pushes to a private registry'
-author: 'Sean Smith'
-inputs:
-  image:
-    description: 'Name of the Docker image'
-    required: true
-  tag:
-    description: 'Tag override for Docker image'
-    required: false
-  registry:
-    description: 'Target Docker registry'
-    required: true
-  dockerfile:
-    description: 'Location of Dockerfile, if not Dockerfile in root directory'
-    required: false
-    default: 'Dockerfile'
-  directory:
-    description: 'Directory to run `docker build` from, if not project root'
-    required: false
-  buildArgs:
-    description: 'Docker build arguments in format KEY=VALUE,KEY=VALUE'
-    required: false
-  username:
-    description: 'Docker registry username'
-    required: false
-  password:
-    description: 'Docker registry password'
-    required: false
-  gitHubOrg:
-    description: 'GitHub organization to push image to (if not current)'
-    required: false
-outputs:
-  imageFullName:
-    description: 'Full name of the Docker image with registry prefix and tag suffix'
-  imageName:
-    description: 'Name of the Docker image with owner prefix'
-  tag:
-    description: 'Tag for the Docker image'
-runs:
-  using: 'node12'
-  main: 'dist/index.js'
+name: Build and push Docker images
+description: Builds and pushes Docker images and will log in to a Docker registry if required
+author: Docker
 branding:
   icon: 'anchor'
   color: 'blue'
+runs:
+  using: docker
+  image: docker://docker/github-actions:v1
+  args:
+    - build-push
+inputs:
+  username:
+    description: Username used to log in to a Docker registry. If not set then no login will occur
+    required: false
+  password:
+    description: Password or personal access token used to log in to a Docker registry. If not set then no login will occur
+    required: false
+  registry:
+    description: Server address of Docker registry. If not set then will default to Docker Hub
+    required: false
+  repository:
+    description: Docker repository to tag the image with
+    required: true
+  tags:
+    description: Comma-delimited list of tags. These will be added to the registry/repository to form the image's tags
+    required: false
+  tag_with_ref:
+    description: Automatically tags the built image with the git reference as per the readme
+    required: false
+    default: false
+  tag_with_sha:
+    description: Automatically tags the built image with the git short SHA as per the readme
+    required: false
+    default: false
+  path:
+    description: Path to the build context
+    required: false
+    default: "."
+  dockerfile:
+    description: Path to the Dockerfile (Default is '{path}/Dockerfile')
+    required: false
+  target:
+    description: Sets the target stage to build
+    required: false
+  always_pull:
+    description: Always attempt to pull a newer version of the image
+    required: false
+    default: false
+  build_args:
+    description: Comma-delimited list of build-time variables
+    required: false
+  cache_froms:
+    description: Comma-delimited list of images to consider as cache sources
+    required: false
+  labels:
+    description: Comma-delimited list of labels to add to the built image
+    required: false
+  add_git_labels:
+    description: Adds labels with git repository information to the built image
+    required: false
+    default: false
+  push:
+    description: Whether to push the image
+    required: false
+    default: true

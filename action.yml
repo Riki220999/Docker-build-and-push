@@ -6,7 +6,7 @@ branding:
   color: 'blue'
 runs:
   using: docker
-  image: docker://docker/github-actions:v1
+  image: Dockerfile
   args:
     - build-push
 inputs:
@@ -39,7 +39,7 @@ inputs:
     default: "."
   dockerfile:
     description: Path to the Dockerfile (Default is '{path}/Dockerfile')
-    required: true
+    required: false
   target:
     description: Sets the target stage to build
     required: false

@@ -17,7 +17,10 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v2
-    
+
+    - name: Checkout
+      uses: actions/checkout@v2.3.2
+
     - name: Run local registry
       run: docker run -d -p 5000:5000 registry:2
     
@@ -27,11 +30,8 @@ jobs:
         DOCKER_BUILDKIT: 1
       with:
         registry: localhost:5000
-        repository: temp/workflow
-        tags: foo
-      
-    - name: Remove local image
-      run: docker image rm localhost:5000/temp/workflow:foo
+        repository: ./
+        tags: Dockerfile
 
     - name: Run image from registry
-      run: docker run localhost:5000/temp/workflow:foo
+      run: docker run localhost:5000/:Dockerfile

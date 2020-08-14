@@ -34,4 +34,5 @@ jobs:
         tags: Dockerfile
 
     - name: Run image from registry
-      run: docker run localhost:5000/:Dockerfile
+      run: docker run --publish 8000:5000 --detach --name bb Dockerfile
+

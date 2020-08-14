@@ -32,5 +32,6 @@ jobs:
         registry: localhost:5000
         repository: temp/workflow
         tags: foo
+        image: 'Dockerfile'
     - name: Run image from registry
       run: docker run localhost:5000/temp/workflow:foo

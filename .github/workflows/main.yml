@@ -17,21 +17,21 @@ jobs:
 
     - name: Checkout
       uses: actions/checkout@v2
-
-    - name: Checkout
-      uses: actions/checkout@v2.3.2
-
+    
     - name: Run local registry
       run: docker run -d -p 5000:5000 registry:2
     
+    - name: Run image from registry
+      run: docker pull riki2225/build_and_push
+      
     - name: Build and push image
-      uses: Dockerfile
+      uses: ./
       env:
         DOCKER_BUILDKIT: 1
       with:
         registry: localhost:5000
+        repository: riki2225/build_and_push
         tags: Dockerfile
 
     - name: Run image from registry
-      run: docker run --publish 8000:5000 --detach --name bb Dockerfile
-
+      run: docker run localhost:5000/riki2225/build_and_push:Dockerfile
